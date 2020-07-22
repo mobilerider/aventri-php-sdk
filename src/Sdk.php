@@ -8,6 +8,7 @@ use Mr\AventriSdk\Exception\AventriException;
 use Mr\AventriSdk\Exception\InvalidCredentialsException;
 use Mr\AventriSdk\Http\Client;
 use Mr\AventriSdk\Http\Middleware\ErrorsMiddleware;
+use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
 use Mr\AventriSdk\Service\RegistrationService;
 use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
 use Mr\AventriSdk\Model\Registration\Atendee;

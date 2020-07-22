@@ -3,7 +3,7 @@
 
 namespace Mr\AventriSdk\Repository\Registration;
 
-use Mr\AventriSdk\Model\Registration\Atendee;
+use Mr\AventriSdk\Model\Registration\Attendee;
 use Mr\Bootstrap\Http\Filtering\MrApiQueryBuilder;
 use Mr\Bootstrap\Interfaces\HttpDataClientInterface;
 use Mr\Bootstrap\Repository\BaseRepository;
