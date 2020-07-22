@@ -1,0 +1,34 @@
+{
+    "name": "mobilerider/aventri-sdk-php",
+    "description": "PHP SDK for Aventri API",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "vcs",
+            "no-api": true,
+            "url": "https://github.com/mobilerider/mobilerider-php-bootstrap.git"
+        },
+        {
+            "type": "vcs",
+            "no-api": true,
+            "url": "https://github.com/m1ch3lp3r3z/laravel-helpers.git"
+        }
+    ],    
+    "require": {
+        "php": ">=7.0",        
+        "guzzlehttp/psr7": "^1.6.1",
+        "guzzlehttp/promises": "^1.3",
+        "mobilerider/mobilerider-php-bootstrap": "*"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^7.1"        
+    },  
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yojahny55",
+            "email": "yojahnychavez@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
