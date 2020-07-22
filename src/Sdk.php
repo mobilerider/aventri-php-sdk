@@ -9,6 +9,7 @@ use Mr\AventriSdk\Exception\AventriException;
 use Mr\AventriSdk\Exception\InvalidCredentialsException;
 use Mr\AventriSdk\Http\Client;
 use Mr\AventriSdk\Http\Middleware\ErrorsMiddleware;
+use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
 use Mr\AventriSdk\Service\RegistrationService;
 use Mr\Bootstrap\Container;
 use Mr\Bootstrap\Interfaces\ContainerAccessorInterface;
@@ -127,7 +128,7 @@ class Sdk implements ContainerAccessorInterface
                     'single' => false,
                     'class' => Attendee::class,
                     'arguments' => [
-                        'repository' => \mr_srv_arg(UserRepository::class),
+                        'repository' => \mr_srv_arg(AttendeeRepository::class),
                         'data' => null
                     ]
                 ],
