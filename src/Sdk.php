@@ -9,6 +9,7 @@ use Mr\AventriSdk\Exception\AventriException;
 use Mr\AventriSdk\Exception\InvalidCredentialsException;
 use Mr\AventriSdk\Http\Client;
 use Mr\AventriSdk\Http\Middleware\ErrorsMiddleware;
+use Mr\AventriSdk\Service\RegistrationService;
 use Mr\Bootstrap\Container;
 use Mr\Bootstrap\Interfaces\ContainerAccessorInterface;
 use Mr\Bootstrap\Traits\ContainerAccessor;

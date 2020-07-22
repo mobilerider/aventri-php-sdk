@@ -3,7 +3,7 @@
 namespace Mr\AventriSdk\Service;
 
 use Mr\Bootstrap\Service\BaseHttpService;
-use Mr\Sdk\Repository\Account\AttendeeRepository;
+use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
 
 class RegistrationService extends BaseHttpService
 {
