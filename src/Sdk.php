@@ -2,7 +2,6 @@
 
 namespace Mr\AventriSdk;
 
-
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use Mr\AventriSdk\Exception\AventriException;
@@ -10,6 +9,8 @@ use Mr\AventriSdk\Exception\InvalidCredentialsException;
 use Mr\AventriSdk\Http\Client;
 use Mr\AventriSdk\Http\Middleware\ErrorsMiddleware;
 use Mr\AventriSdk\Service\RegistrationService;
+use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
+use Mr\AventriSdk\Model\Registration\Atendee;
 use Mr\Bootstrap\Container;
 use Mr\Bootstrap\Interfaces\ContainerAccessorInterface;
 use Mr\Bootstrap\Traits\ContainerAccessor;
@@ -26,8 +27,11 @@ class Sdk implements ContainerAccessorInterface
 {
     use ContainerAccessor;
 
-    private static $instance;
+    const BASE_URL = 'https://www.eiseverywhere.com/api/';
 
+    const API_VERSION = 'v2/';
+
+    private static $instance;
     private $accountId;
     private $appId;
     private $appSecret;
@@ -50,11 +54,10 @@ class Sdk implements ContainerAccessorInterface
      * @param array $httpOptions
      * @throws MrException
      */
-    private function __construct($accountId, $appId, $appSecret, $token = null, array $options = [], array $httpOptions = [])
+    private function __construct($accountId, $appId, $token = null, array $options = [], array $httpOptions = [])
     {
         $this->accountId = $accountId;
         $this->appId = $appId;
-        $this->appSecret = $appSecret;
         $this->token = $token;
         $this->options = $options;
 
@@ -65,7 +68,7 @@ class Sdk implements ContainerAccessorInterface
         $this->httpOptions = [
             'registration' => array_merge(
                 [
-                    'base_uri' => '<base_url>',
+                    'base_uri' => static::BASE_URL . static::API_VERSION . 'ereg/',
                     'headers' => $this->defaultHeaders
                 ],
                 $httpCommon,
@@ -73,7 +76,7 @@ class Sdk implements ContainerAccessorInterface
             ),
         ];
 
-        if ((!$accountId || !$appId || !$appSecret) && !$token) {
+        if ((!$accountId || !$appId ) && !$token) {
             throw new AventriException('Empty credentials');
         }
 
@@ -102,7 +105,7 @@ class Sdk implements ContainerAccessorInterface
                     'single' => true,
                     'class' => Client::class,
                     'arguments' => [
-                        'options' => array_merge($httpDefaultRuntimeOptions, $this->httpOptions['media'])
+                        'options' => array_merge($httpDefaultRuntimeOptions, $this->httpOptions)
                     ]
                 ],
                 // Services
@@ -127,7 +130,7 @@ class Sdk implements ContainerAccessorInterface
                     'single' => false,
                     'class' => Attendee::class,
                     'arguments' => [
-                        'repository' => \mr_srv_arg(UserRepository::class),
+                        'repository' => \mr_srv_arg(AttendeeRepository::class),
                         'data' => null
                     ]
                 ],
@@ -143,13 +146,13 @@ class Sdk implements ContainerAccessorInterface
 
     protected function authenticate()
     {
-        $client = new Client($accountHttpOptions);
+        $client = new Client($this->httpOptions);
         $data = null;
 
         try {
-            $data = $client->postData("<auth url>", [
-                'username' => $this->appId,
-                'password' => $this->appSecret
+            $data = $client->getData(static::BASE_URL . static::API_VERSION . 'global/authorize.json', [
+                'accountid' => $this->accountId,
+                'key' => $this->appId
             ]);
         } catch (RequestException $ex) {
             // Just avoid request exception from propagating
@@ -158,11 +161,11 @@ class Sdk implements ContainerAccessorInterface
             }
         }
 
-        if (! isset($data, $data['data'], $data['data']['token'])) {
+        if (! isset($data, $data['accesstoken'])) {
             throw new InvalidCredentialsException();
         }
 
-        return $this->token = $data['data']['token'];
+        return $this->token = $data['accesstoken'];
     }
 
     /**
@@ -178,19 +181,19 @@ class Sdk implements ContainerAccessorInterface
         return $this->httpOptions;
     }
 
-    protected static function create($accountId, $appId, $appSecret, $token, array $options, array $httpOptions)
+    protected static function create($accountId, $appId, $token, array $options, array $httpOptions)
     {
-        self::$instance = new self($accountId, $appId, $appSecret, $token, $options, $httpOptions);
+        self::$instance = new self($accountId, $appId, $token, $options, $httpOptions);
     }
 
-    public static function setCredentials($accountId, $appId, $appSecret, array $options = [], array $httpOptions = [])
+    public static function setCredentials($accountId, $appId, array $options = [], array $httpOptions = [])
     {
-        self::create($accountId, $appId, $appSecret, null, $options, $httpOptions);
+        self::create($accountId, $appId, null, $options, $httpOptions);
     }
 
     public static function setAuthToken($token, array $options = [], array $httpOptions = [])
     {
-        self::create(null,null, null, $token, $options, $httpOptions);
+        self::create(null, null, $token, $options, $httpOptions);
     }
 
     /**

@@ -3,7 +3,7 @@
 
 namespace Mr\AventriSdk\Repository\Registration;
 
-use Mr\AventriSdk\Model\Attendee;
+use Mr\AventriSdk\Model\Registration\Atendee;
 use Mr\Bootstrap\Http\Filtering\MrApiQueryBuilder;
 use Mr\Bootstrap\Interfaces\HttpDataClientInterface;
 use Mr\Bootstrap\Repository\BaseRepository;
@@ -13,7 +13,7 @@ class AttendeeRepository extends BaseRepository
     public function __construct(HttpDataClientInterface $client, array $options = [])
     {
         $options["queryBuilderClass"] = MrApiQueryBuilder::class;
-        parent::__construct($client, $options);   
+        parent::__construct($client, $options);
     }
     
     public function getModelClass()
@@ -23,7 +23,7 @@ class AttendeeRepository extends BaseRepository
 
     protected function getResourcePath()
     {
-        return $this->getResource();
+         $this->getResource();
     }
 
     public function parseOne(array $data, array &$metadata = [])

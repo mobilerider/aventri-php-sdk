@@ -2,7 +2,6 @@
 
 namespace Mr\AventriSdk\Http;
 
-
 use Mr\Bootstrap\Data\JsonEncoder;
 use Mr\Bootstrap\Interfaces\HttpDataClientInterface;
 use Mr\Bootstrap\Traits\HttpDataClient;
