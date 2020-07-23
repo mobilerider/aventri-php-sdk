@@ -35,7 +35,7 @@ class Sdk implements ContainerAccessorInterface
     private static $instance;
     private $accountId;
     private $appId;
-    private $appSecret;
+    private $eventId;
     private $token;
     private $options;
     private $httpOptions;
@@ -55,10 +55,11 @@ class Sdk implements ContainerAccessorInterface
      * @param array $httpOptions
      * @throws MrException
      */
-    private function __construct($accountId, $appId, $token = null, array $options = [], array $httpOptions = [])
+    private function __construct($accountId, $appId, $eventId = null, $token = null, array $options = [], array $httpOptions = [])
     {
         $this->accountId = $accountId;
         $this->appId = $appId;
+        $this->eventId = $eventId;
         $this->token = $token;
         $this->options = $options;
 
@@ -88,7 +89,7 @@ class Sdk implements ContainerAccessorInterface
         // Create default handler with all the default middlewares
         $stack = HandlerStack::create();
         $stack->remove('http_errors');
-        $stack->unshift(new TokenAuthMiddleware($token), 'auth');
+        $stack->unshift(new TokenAuthMiddleware($token, $eventId), 'auth');
 
         // Last to un-shift so it remains first to execute
         $stack->unshift(new ErrorsMiddleware([]), 'http_errors');
@@ -184,19 +185,19 @@ class Sdk implements ContainerAccessorInterface
         return $this->httpOptions;
     }
 
-    protected static function create($accountId, $appId, $token, array $options, array $httpOptions)
+    protected static function create($accountId, $appId, $eventId, $token, array $options, array $httpOptions)
     {
-        self::$instance = new self($accountId, $appId, $token, $options, $httpOptions);
+        self::$instance = new self($accountId, $appId, $eventId, $token, $options, $httpOptions);
     }
 
-    public static function setCredentials($accountId, $appId, array $options = [], array $httpOptions = [])
+    public static function setCredentials($accountId, $appId, $eventId = null, array $options = [], array $httpOptions = [])
     {
-        self::create($accountId, $appId, null, $options, $httpOptions);
+        self::create($accountId, $appId, $eventId, null, $options, $httpOptions);
     }
 
     public static function setAuthToken($token, array $options = [], array $httpOptions = [])
     {
-        self::create(null, null, $token, $options, $httpOptions);
+        self::create(null, null, null, $token, $options, $httpOptions);
     }
 
     /**
@@ -236,6 +237,13 @@ class Sdk implements ContainerAccessorInterface
     protected function _getToken()
     {
         return $this->token;
+    }
+    /**
+     * @return eventId
+     */
+    protected function _geteventId()
+    {
+        return $this->eventId;
     }
 
     /**
