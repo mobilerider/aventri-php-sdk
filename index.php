@@ -10,7 +10,15 @@ $dotenv->load();
 
 Sdk::setCredentials($_ENV['ACCOUNT_ID'], $_ENV['KEY']);
 
-$srv = Sdk::getRegistrationService();
+//print(var_dump($token));
 
-$attendees = $srv->findAttendees();
+$srv = Sdk::getRegistrationService();
+$token = Sdk::getToken();
+$options = array(
+    'accestoken'=>$token,
+    'eventid' => '517370'
+
+);
+
+$attendees = $srv->findAttendees($options);
 print_r(var_dump($attendees));

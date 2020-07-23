@@ -165,7 +165,7 @@ class Sdk implements ContainerAccessorInterface
             throw new InvalidCredentialsException();
         }
       
-        return $this->token = $data['accesstoken'];
+        return $data['accesstoken'];
     }
 
     /**
@@ -227,6 +227,9 @@ class Sdk implements ContainerAccessorInterface
         return $this->accountId;
     }
 
+    /**
+     * @return token
+     */
     protected function _getToken()
     {
         return $this->token;
