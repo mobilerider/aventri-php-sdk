@@ -8,11 +8,11 @@ use Mr\AventriSdk\Exception\AventriException;
 use Mr\AventriSdk\Exception\InvalidCredentialsException;
 use Mr\AventriSdk\Http\Client;
 use Mr\AventriSdk\Http\Middleware\ErrorsMiddleware;
+use Mr\AventriSdk\Http\Middleware\TokenAuthMiddleware;
 use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
 use Mr\AventriSdk\Service\RegistrationService;
 use Mr\AventriSdk\Model\Registration\Attendee;
 use Mr\Bootstrap\Container;
-use Mr\Bootstrap\Http\Middleware\TokenAuthMiddleware;
 use Mr\Bootstrap\Interfaces\ContainerAccessorInterface;
 use Mr\Bootstrap\Traits\ContainerAccessor;
 use Mr\Bootstrap\Utils\Logger;
@@ -82,13 +82,13 @@ class Sdk implements ContainerAccessorInterface
         }
 
         if (!$token) {
-            $token = $this->authenticate();
+             $token = $this->authenticate();
         }
 
         // Create default handler with all the default middlewares
         $stack = HandlerStack::create();
         $stack->remove('http_errors');
-        $stack->unshift(new TokenAuthMiddleware($this->token), 'auth');
+        $stack->unshift(new TokenAuthMiddleware($token), 'auth');
 
         // Last to un-shift so it remains first to execute
         $stack->unshift(new ErrorsMiddleware([]), 'http_errors');
