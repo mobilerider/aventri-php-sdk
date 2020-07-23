@@ -37,9 +37,9 @@ class AttendeeRepository extends BaseRepository
 
     public function parseMany(array $data, array &$metadata = [])
     {
-        $metadata = $data['meta'];
+        $metadata = $data;
 
-        return $data['objects'];
+        return $data;
     }
 
     protected function buildQuery(array $filters, array $params)
