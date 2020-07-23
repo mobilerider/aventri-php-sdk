@@ -74,7 +74,7 @@ class Sdk implements ContainerAccessorInterface
                     'headers' => $this->defaultHeaders
                 ],
                 $httpCommon,
-                $httpOptions['account'] ?? []
+                $httpOptions['registration'] ?? []
             ),
         ];
 
@@ -109,7 +109,7 @@ class Sdk implements ContainerAccessorInterface
                     'single' => true,
                     'class' => Client::class,
                     'arguments' => [
-                        'options' => array_merge($httpDefaultRuntimeOptions, $this->httpOptions)
+                        'options' => array_merge($httpDefaultRuntimeOptions, $this->httpOptions['registration'])
                     ]
                 ],
                 // Services
