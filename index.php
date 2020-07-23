@@ -8,9 +8,9 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 
-Sdk::setCredentials('7574', '41cb853962051d9dcc38607153b7cb5fbfc3f021');
+Sdk::setCredentials($_ENV['ACCOUNT_ID'], $_ENV['KEY']);
 
-//$srv = Sdk::getRegistrationService();
+$srv = Sdk::getRegistrationService();
 
-//$attendees = $srv->findAttendees();
-//print_r(var_dump($attendees));
+$attendees = $srv->findAttendees();
+print_r(var_dump($attendees));

@@ -10,8 +10,7 @@ use Mr\AventriSdk\Http\Client;
 use Mr\AventriSdk\Http\Middleware\ErrorsMiddleware;
 use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
 use Mr\AventriSdk\Service\RegistrationService;
-use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
-use Mr\AventriSdk\Model\Registration\Atendee;
+use Mr\AventriSdk\Model\Registration\Attendee;
 use Mr\Bootstrap\Container;
 use Mr\Bootstrap\Interfaces\ContainerAccessorInterface;
 use Mr\Bootstrap\Traits\ContainerAccessor;
@@ -69,7 +68,7 @@ class Sdk implements ContainerAccessorInterface
         $this->httpOptions = [
             'registration' => array_merge(
                 [
-                    'base_uri' => static::BASE_URL . static::API_VERSION . 'ereg/',
+                    'base_uri' => static::BASE_URL,
                     'headers' => $this->defaultHeaders
                 ],
                 $httpCommon,
@@ -82,7 +81,7 @@ class Sdk implements ContainerAccessorInterface
         }
 
         if (!$token) {
-            $this->authenticate();
+            $token = $this->authenticate();
         }
 
         // Create default handler with all the default middlewares
@@ -165,7 +164,7 @@ class Sdk implements ContainerAccessorInterface
         if (! isset($data, $data['accesstoken'])) {
             throw new InvalidCredentialsException();
         }
-
+      
         return $this->token = $data['accesstoken'];
     }
 
@@ -228,7 +227,7 @@ class Sdk implements ContainerAccessorInterface
         return $this->accountId;
     }
 
-    protected function _getToken()
+    public function _getToken()
     {
         return $this->token;
     }

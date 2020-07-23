@@ -7,6 +7,7 @@ use Mr\AventriSdk\Model\Registration\Attendee;
 use Mr\Bootstrap\Http\Filtering\MrApiQueryBuilder;
 use Mr\Bootstrap\Interfaces\HttpDataClientInterface;
 use Mr\Bootstrap\Repository\BaseRepository;
+use Mr\AventriSdk\Sdk;
 
 class AttendeeRepository extends BaseRepository
 {
@@ -23,7 +24,8 @@ class AttendeeRepository extends BaseRepository
 
     protected function getResourcePath()
     {
-         $this->getResource();
+        
+        return $this->getResource();
     }
 
     public function parseOne(array $data, array &$metadata = [])

@@ -4,6 +4,7 @@ namespace Mr\AventriSdk\Service;
 
 use Mr\Bootstrap\Service\BaseHttpService;
 use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
+use Mr\AventriSdk\Model\Registration\Attendee;
 
 class RegistrationService extends BaseHttpService
 {
