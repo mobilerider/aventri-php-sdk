@@ -227,7 +227,7 @@ class Sdk implements ContainerAccessorInterface
         return $this->accountId;
     }
 
-    public function _getToken()
+    protected function _getToken()
     {
         return $this->token;
     }
