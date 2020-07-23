@@ -12,6 +12,7 @@ use Mr\AventriSdk\Repository\Registration\AttendeeRepository;
 use Mr\AventriSdk\Service\RegistrationService;
 use Mr\AventriSdk\Model\Registration\Attendee;
 use Mr\Bootstrap\Container;
+use Mr\Bootstrap\Http\Middleware\TokenAuthMiddleware;
 use Mr\Bootstrap\Interfaces\ContainerAccessorInterface;
 use Mr\Bootstrap\Traits\ContainerAccessor;
 use Mr\Bootstrap\Utils\Logger;
@@ -86,6 +87,8 @@ class Sdk implements ContainerAccessorInterface
 
         // Create default handler with all the default middlewares
         $stack = HandlerStack::create();
+        $stack->remove('http_errors');
+        $stack->unshift(new TokenAuthMiddleware($this->token), 'auth');
 
         // Last to un-shift so it remains first to execute
         $stack->unshift(new ErrorsMiddleware([]), 'http_errors');
