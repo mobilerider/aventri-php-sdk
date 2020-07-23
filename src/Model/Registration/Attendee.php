@@ -10,6 +10,6 @@ class Attendee extends BaseModel
     public static function getResource()
     {
        
-        return 'https://www.eiseverywhere.com/api/v2/ereg/getAttendee.json'; 
+        return 'attendee';
     }
 }
