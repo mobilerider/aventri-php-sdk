@@ -35,9 +35,8 @@ class TokenAuthMiddleware
      */
     public function __invoke(callable $handler)
     {
-       
-       
         return function (RequestInterface $request, array $options) use ($handler) {
+            $test = $request->getUri()->getPath();
             $queryString = $request->getUri()->getQuery();
             $queryParts = \GuzzleHttp\Psr7\parse_query($queryString);
             $queryParts['accesstoken'] = $this->token;

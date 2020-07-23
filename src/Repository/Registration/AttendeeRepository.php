@@ -27,12 +27,19 @@ class AttendeeRepository extends BaseRepository
         
         return $this->getResource();
     }
+    public function getUri($id = null, $path = '')
+    {
+        $resource = $this->getResourcePath();
+     
+        $result = $id ? "{$resource}" . '?attendeeid=' . $id : $resource;
+        return $path ? "$result/$path" : $result;
+    }
 
     public function parseOne(array $data, array &$metadata = [])
     {
-        $metadata = $data['meta'];
+        $metadata = $data;
 
-        return $data['object'];
+        return $data;
     }
 
     public function parseMany(array $data, array &$metadata = [])

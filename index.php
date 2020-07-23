@@ -15,5 +15,11 @@ Sdk::setCredentials($_ENV['ACCOUNT_ID'], $_ENV['KEY'], $_ENV['EVENT_ID']);
 $srv = Sdk::getRegistrationService();
 
 
-$attendees = $srv->findAttendees();
+$lolo = array(
+    'attendeeid' => 48050294
+   );
+
+//$attendees = $srv->findAttendees($lolo);
+$attendees = $srv->getAttendee(48050294);
+
 print_r(var_dump($attendees));

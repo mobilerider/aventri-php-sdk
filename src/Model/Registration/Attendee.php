@@ -9,7 +9,7 @@ class Attendee extends BaseModel
 {
     public static function getResource()
     {
-        $token = Sdk::getToken();
-        return 'https://www.eiseverywhere.com/api/v2/ereg/listAttendees.json';
+       
+        return 'https://www.eiseverywhere.com/api/v2/ereg/getAttendee.json'; 
     }
 }
