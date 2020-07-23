@@ -8,7 +8,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 
-Sdk::setCredentials($_ENV['ACCOUNT_ID'], $_ENV['KEY'], $_ENV['EVENT_ID']);
+Sdk::setCredentials($_ENV['ACCOUNT_ID'], $_ENV['KEY'], $_ENV['EVENT_ID'], ['debug' => true]);
 
 //print(var_dump($token));
 
