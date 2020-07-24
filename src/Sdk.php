@@ -238,9 +238,9 @@ class Sdk implements ContainerAccessorInterface
     {
         return $this->token;
     }
-    
+
     /**
-     * @return EventId
+     * @return eventId
      */
     protected function _getEventId()
     {
