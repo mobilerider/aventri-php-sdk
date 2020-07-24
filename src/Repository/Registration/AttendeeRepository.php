@@ -42,15 +42,11 @@ class AttendeeRepository extends BaseRepository
 
     public function parseOne(array $data, array &$metadata = [])
     {
-        $metadata = $data;
-
         return $data;
     }
 
     public function parseMany(array $data, array &$metadata = [])
     {
-        $metadata = $data;
-
         return $data;
     }
 
