@@ -11,6 +11,10 @@ Sdk::setCredentials(getenv("ACCOUNT_ID"), getenv("ACCOUNT_KEY"), getenv("EVENT_I
 
 $srv = Sdk::getRegistrationService();
 
-$attendees = $srv->findAttendees();
-
-mr_dd($attendees);
+if (getenv("ATTENDEE_ID")) {
+    $attendee = $srv->getAttendee(getenv("ATTENDEE_ID"));
+    mr_dd($attendee);
+} else {
+    $attendees = $srv->findAttendees(['page' => 2]);
+    mr_dd($attendees);
+}
