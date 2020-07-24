@@ -1,0 +1,8 @@
+vendor/
+coverage/
+clover.xml
+.env
+.idea
+
+main.php
+.DS_Store
