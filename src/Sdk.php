@@ -241,7 +241,7 @@ class Sdk implements ContainerAccessorInterface
     /**
      * @return eventId
      */
-    protected function _geteventId()
+    protected function _getEventId()
     {
         return $this->eventId;
     }
