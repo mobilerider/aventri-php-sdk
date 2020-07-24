@@ -28,7 +28,7 @@ class Sdk implements ContainerAccessorInterface
 {
     use ContainerAccessor;
 
-    const BASE_URL = 'https://www.eiseverywhere.com/api/';
+    const BASE_URL = 'https://api-na.eventscloud.com/api/';
 
     const API_VERSION = 'v2/';
 
