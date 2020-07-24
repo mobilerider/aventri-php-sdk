@@ -23,7 +23,7 @@ class TokenAuthMiddleware
     {
         $this->token = $token;
     }
-    
+
     public function setEventId($eventId)
     {
         $this->eventId = $eventId;
