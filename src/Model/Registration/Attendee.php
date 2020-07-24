@@ -9,7 +9,6 @@ class Attendee extends BaseModel
 {
     public static function getResource()
     {
-               
-        return 'attendee';
+        return 'getAttendee.json';
     }
 }
