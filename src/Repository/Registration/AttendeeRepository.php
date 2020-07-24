@@ -11,6 +11,8 @@ use Mr\AventriSdk\Sdk;
 
 class AttendeeRepository extends BaseRepository
 {
+    const ENDPOINT_PREFIX = "ereg/";
+
     public function __construct(HttpDataClientInterface $client, array $options = [])
     {
         $options["queryBuilderClass"] = MrApiQueryBuilder::class;
@@ -24,15 +26,18 @@ class AttendeeRepository extends BaseRepository
 
     protected function getResourcePath()
     {
-        
-        return $this->getResource();
+        return Sdk::API_VERSION . self::ENDPOINT_PREFIX;
     }
+
     public function getUri($id = null, $path = '')
     {
-        $resource = $this->getResourcePath();
-     
-        $result = $id ? "{$resource}" . '?attendeeid=' . $id : $resource;
-        return $path ? "$result/$path" : $result;
+        $uri = $this->getResourcePath() . $path;  
+
+        if ($id) {
+            return $uri . "getAttendee.json?attendeeid=$id";
+        }
+
+        return $uri . "listAttendees.json";
     }
 
     public function parseOne(array $data, array &$metadata = [])
