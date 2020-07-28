@@ -8,11 +8,11 @@ require __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-Sdk::setCredentials(getenv("ACCOUNT_ID"), getenv("ACCOUNT_KEY"), getenv("EVENT_ID"), ['debug' => true]);
+Sdk::setCredentials($_ENV["ACCOUNT_ID"], $_ENV["ACCOUNT_KEY"], $_ENV["EVENT_ID"], ['debug' => true]);
 $srv = Sdk::getRegistrationService();
 
-if (getenv("ATTENDEE_ID")) {
-    $attendee = $srv->getAttendee(getenv("ATTENDEE_ID"));
+if (isset($_ENV["ATTENDEE_ID"])) {
+    $attendee = $srv->getAttendee($_ENV["ATTENDEE_ID"]);
     mr_dd($attendee);
 } else {
     $attendees = $srv->findAttendees(['page' => 2]);
