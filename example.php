@@ -15,6 +15,6 @@ if (isset($_ENV["ATTENDEE_ID"])) {
     $attendee = $srv->getAttendee($_ENV["ATTENDEE_ID"]);
     mr_dd($attendee);
 } else {
-    $attendees = $srv->findAttendees(['page' => 2]);
+    $attendees = $srv->findAttendees();
     mr_dd($attendees);
 }
